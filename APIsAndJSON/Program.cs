@@ -9,20 +9,25 @@ namespace APIsAndJSON
             var client = new HttpClient();
 
             var kanyeUrl = "https://api.kanye.rest/";
-
-            var kanyeResponseJson = client.GetStringAsync(kanyeUrl).Result;
-
-            var kanyeQuote = JObject.Parse(kanyeResponseJson).GetValue("quote").ToString();
-            
-            Console.WriteLine($"Kanye:{kanyeQuote}");
-
             var ronUrl = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
-            
-            var ronResponseJson = client.GetStringAsync(ronUrl).Result;
 
-            var ronQuote = JArray.Parse(ronResponseJson);
-            Console.WriteLine($"Ron: {ronQuote[0]}");
-            
+            for (int i = 0; i < 5; i++)
+            {
+
+                var kanyeResponseJson = client.GetStringAsync(kanyeUrl).Result;
+
+                var kanyeQuote = JObject.Parse(kanyeResponseJson).GetValue("quote").ToString();
+
+                Console.WriteLine($"Kanye:{kanyeQuote}");
+
+
+
+                var ronResponseJson = client.GetStringAsync(ronUrl).Result;
+
+                var ronQuote = JArray.Parse(ronResponseJson);
+                Console.WriteLine($"Ron: {ronQuote[0]}");
+            }
+
 
 
 
