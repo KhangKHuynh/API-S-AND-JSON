@@ -14,7 +14,15 @@ namespace APIsAndJSON
 
             var kanyeQuote = JObject.Parse(kanyeResponseJson).GetValue("quote").ToString();
             
-            Console.WriteLine(kanyeQuote);
+            Console.WriteLine($"Kanye:{kanyeQuote}");
+
+            var ronUrl = "https://ron-swanson-quotes.herokuapp.com/v2/quotes";
+            
+            var ronResponseJson = client.GetStringAsync(ronUrl).Result;
+
+            var ronQuote = JArray.Parse(ronResponseJson);
+            Console.WriteLine($"Ron: {ronQuote[0]}");
+            
 
 
 
