@@ -13,57 +13,60 @@ namespace APIsAndJSON
 
             for (int i = 0; i < 5; i++)
             {
+                if (i % 2 == 0)
+                {
 
-                var kanyeResponseJson = client.GetStringAsync(kanyeUrl).Result;
+                    var kanyeResponseJson = client.GetStringAsync(kanyeUrl).Result;
 
-                var kanyeQuote = JObject.Parse(kanyeResponseJson).GetValue("quote").ToString();
+                    var kanyeQuote = JObject.Parse(kanyeResponseJson).GetValue("quote").ToString();
 
-                Console.WriteLine($"Kanye:{kanyeQuote}");
+                    Console.WriteLine($"Kanye:{kanyeQuote}");
+                }
+                else
+                {
+                    var ronResponseJson = client.GetStringAsync(ronUrl).Result;
 
-
-
-                var ronResponseJson = client.GetStringAsync(ronUrl).Result;
-
-                var ronQuote = JArray.Parse(ronResponseJson);
-                Console.WriteLine($"Ron: {ronQuote[0]}");
-            }
-
-
+                    var ronQuote = JArray.Parse(ronResponseJson);
+                    Console.WriteLine($"Ron: {ronQuote[0]}");
+                }
 
 
-            var appsettingsText = File.ReadAllText("appsettings.json");
-            
-            var apiKey = JObject.Parse(appsettingsText)["key"].ToString();
 
-            //Console.WriteLine("Please enter your zip code:");
 
-            //var zip = Console.ReadLine();
+                var appsettingsText = File.ReadAllText("appsettings.json");
 
-           // var weatherUrl =
+                var apiKey = JObject.Parse(appsettingsText)["key"].ToString();
+
+                //Console.WriteLine("Please enter your zip code:");
+
+                //var zip = Console.ReadLine();
+
+                // var weatherUrl =
                 //$"https://api.openweathermap.org/data/2.5/weather?zip={}&appid={apiKey}"; 
-                
+
                 Console.WriteLine("What is the weather like today in Bentonville, AR?");
-                
+
                 //var weather = Console.ReadLine();
-                
+
                 var weatherUrl =
                     $"https://api.openweathermap.org/data/2.5/weather?lat=36.372852&lon=-94.208817&appid={apiKey}&units=imperial";
-                
-                
+
+
                 var weatherResponseJson = client.GetStringAsync(weatherUrl).Result;
-                
-                
+
+
                 var weatherNumber = JObject.Parse(weatherResponseJson)["main"]["temp"].ToString();
 
                 var weatherTemp = Math.Round(double.Parse(weatherNumber));
-                
+
                 var weatherDescription = JObject.Parse(weatherResponseJson)["weather"][0]["description"].ToString();
-                
+
                 Console.WriteLine($"{weatherNumber} degrees Fahrenheit with {weatherDescription}!");
-                
-                
 
 
+
+
+            }
         }
     }
 }
